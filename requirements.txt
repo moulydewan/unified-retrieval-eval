@@ -1,0 +1,39 @@
+# core
+python-dotenv==1.0.1
+pydantic==2.8.2
+tqdm==4.66.5
+numpy==1.26.4           # keep <2.0 for accelerate compat
+pandas==2.2.2
+PyYAML==6.0.2
+jinja2==3.1.4
+
+# HF + inference
+torch==2.4.1            # macOS MPS wheel
+transformers==4.43.4
+accelerate==0.33.0      # requires numpy < 2.0
+sentencepiece==0.2.0
+datasets==2.20.0
+ir_datasets==0.5.7      # Information Retrieval datasets (TREC DL, MSMARCO)
+
+# APIs
+openai==1.43.0
+anthropic==0.34.2
+google-generativeai==0.7.2
+protobuf==4.25.3        # < 5.0.0 to satisfy google-generativeai stack
+
+# statistical analysis & plots
+scipy==1.13.1           # statistical tests
+statsmodels==0.14.2     # advanced statistical models
+scikit-learn==1.5.1     # ML metrics
+matplotlib==3.9.0       # plotting
+seaborn==0.13.2         # statistical visualizations
+
+# optional helpers
+typer==0.12.3
+
+#AWS
+boto3==1.35.40
+botocore==1.35.40
+
+#BM25 Retriever
+rank-bm25==0.2.2

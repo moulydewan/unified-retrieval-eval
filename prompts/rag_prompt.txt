@@ -1,0 +1,10 @@
+You are an expert information seeker.
+For this query: "{{ query }}"
+
+Below are the top {{ top_k }} retrieved documents:
+{% for doc in docs %}
+Document {{ loop.index }}:
+{{ doc }}
+{% endfor %}
+
+ For this query, search the document collection and provide a comprehensive answer.

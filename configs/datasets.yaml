@@ -1,0 +1,6 @@
+datasets:
+  trecdl:
+    enabled: true
+    year: 2020
+    mode: passage
+    limit: 10

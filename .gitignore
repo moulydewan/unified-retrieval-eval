@@ -1,0 +1,38 @@
+# Python cache and bytecode
+__pycache__/
+*.pyc
+
+# Virtual environments
+.venv/
+.env/
+.env.*
+
+# OS-specific
+.DS_Store
+
+# Logs and outputs
+*.log
+logs/
+outputs/
+results/
+
+# Data and intermediate files
+data/
+datasets/
+*.csv
+*.jsonl
+*.parquet
+*.pkl
+
+# Notebooks checkpoints
+.ipynb_checkpoints/
+
+# Model checkpoints
+checkpoints/
+models/
+*.pt
+*.bin
+
+# Temporary files
+tmp/
+*.tmp
