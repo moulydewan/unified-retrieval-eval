@@ -1,0 +1,50 @@
+{"dataset":"beir_scidocs","qid":"7a0f2ff12004ac8aafa71864db6e73bbfcb93138","query":"MDU-Net: Multi-scale Densely Connected U-Net for biomedical image segmentation","complexity":"simple"}
+{"dataset":"beir_scidocs","qid":"13c47ed140cc36191678a48b3115939cd0aa8314","query":"AnyDBC: An Efficient Anytime Density-based Clustering Algorithm for Very Large Complex Datasets","complexity":"simple"}
+{"dataset":"beir_scidocs","qid":"030ff7012b92b805a60976f8dbd6a08c1cecebe6","query":"DCAN: Dual Channel-Wise Alignment Networks for Unsupervised Scene Adaptation","complexity":"simple"}
+{"dataset":"beir_scidocs","qid":"1e6bcda276bb1681125eb18ca4d62a44e94c25c9","query":"Trust Region Policy Optimization","complexity":"simple"}
+{"dataset":"beir_scidocs","qid":"afa13588cd866ec23cc71d634becbd507ea61093","query":"A Compact Size, Multi Octave Bandwidth Power Amplifier, Using LDMOS Transistors","complexity":"simple"}
+{"dataset":"beir_scidocs","qid":"d0f54ee5eb73065a2d8c790bbfe727a34541bbea","query":"Software.zhishi.schema: A Software Programming Taxonomy Derived from Stackoverflow","complexity":"simple"}
+{"dataset":"beir_scidocs","qid":"071f47b7bc5830643e31dbed82e0375bf9b26559","query":"Ad Hoc Retrieval Experiments Using WordNet and Automatically Constructed Thesauri","complexity":"simple"}
+{"dataset":"beir_scidocs","qid":"26ebc1b9e21db68d5abf01acd2a0c38d260c65a1","query":"Deep Residual Bidir-LSTM for Human Activity Recognition Using Wearable Sensors","complexity":"simple"}
+{"dataset":"beir_scidocs","qid":"41c98c3080159ea3fbef043358fccd5b2576fa6e","query":"ARQuake: an outdoor\/indoor augmented reality first person application","complexity":"simple"}
+{"dataset":"beir_scidocs","qid":"335ad0ff82c728aca99fb0059c607cb18129526f","query":"Bring you to the past: Automatic Generation of Topically Relevant Event Chronicles","complexity":"simple"}
+{"dataset":"beir_scidocs","qid":"505942c5f9b5779bda2859e22e9ed0b1c0c7b54a","query":"Towards 3D Face Recognition in the Real: A Registration-Free Approach Using Fine-Grained Matching of 3D Keypoint Descriptors","complexity":"simple"}
+{"dataset":"beir_scidocs","qid":"399acab2bee6eccbfffe4a2ce688b6b1075e9c5e","query":"Eyeriss: a spatial architecture for energy-efficient dataflow for convolutional neural networks","complexity":"simple"}
+{"dataset":"beir_scidocs","qid":"16a8e0646724f730eb52216f9bc1284ddb630fd6","query":"rev.ng: a unified binary analysis framework to recover CFGs and function boundaries","complexity":"simple"}
+{"dataset":"beir_scidocs","qid":"4b80771429b786ea87740738378ba1eb1504a57f","query":"Literature Fingerprinting: A New Method for Visual Literary Analysis","complexity":"simple"}
+{"dataset":"beir_scidocs","qid":"725ed843566051638d023ebfdb0311def12cba2a","query":"“Mask-Bot 2i”: An active customisable robotic head with interchangeable face","complexity":"simple"}
+{"dataset":"beir_scidocs","qid":"3cb0ef5aabc7eb4dd8d32a129cb12b3081ef264f","query":"Absolute Head Pose Estimation From Overhead Wide-Angle Cameras","complexity":"moderate"}
+{"dataset":"beir_scidocs","qid":"425a2cb778130d0fd57d00eaf3cbe347c4ee7641","query":"Real-time Semi-Global Matching on the CPU","complexity":"moderate"}
+{"dataset":"beir_scidocs","qid":"3dcc819e642beafccd3f6bffa434767d1a818eb1","query":"A Geometric Method for Detecting Semantic Coercion","complexity":"moderate"}
+{"dataset":"beir_scidocs","qid":"548a49c717dc1ce0263ceff445b5609361c26cde","query":"Decision trees for predicting the academic success of students","complexity":"moderate"}
+{"dataset":"beir_scidocs","qid":"849534526c074568abbfd6daf45c3532b0a18133","query":"Feature Extraction and Image Processing","complexity":"moderate"}
+{"dataset":"beir_scidocs","qid":"5feac39a50e5bf240a64f42dbc881a16e8f8e659","query":"Simple task-specific bilingual word embeddings","complexity":"moderate"}
+{"dataset":"beir_scidocs","qid":"a65e6a974212ed28133c2fe1e3b97a18dbc40cb6","query":"Feature-Rich Named Entity Recognition for Bulgarian Using Conditional Random Fields","complexity":"moderate"}
+{"dataset":"beir_scidocs","qid":"cab59587e4b2dd441198cd37e0038cace6b6531e","query":"A Two-Step Method for Clustering Mixed Categroical and Numeric Data","complexity":"moderate"}
+{"dataset":"beir_scidocs","qid":"92ec85037f5e195c8aa184534a59b356c6ef7599","query":"Cross-Domain Visual Recognition via Domain Adaptive Dictionary Learning","complexity":"moderate"}
+{"dataset":"beir_scidocs","qid":"63e1dffc19c3b4e99ae22ec60d10eaaafd608bcb","query":"Accuracy and Resolution of Kinect Depth Data for Indoor Mapping Applications","complexity":"moderate"}
+{"dataset":"beir_scidocs","qid":"60184fecc57b51fd4f312b77e3817af18643ef8e","query":"Power Optimized Voltage Level Shifter Design for High Speed Dual Supply","complexity":"moderate"}
+{"dataset":"beir_scidocs","qid":"600994f3d8caad52145cc65bf1bfcd883b74a813","query":"MIMO Wireless Linear Precoding","complexity":"moderate"}
+{"dataset":"beir_scidocs","qid":"98f2ae796c7702de12174428a945861379665beb","query":"Bootstrapping Unsupervised Bilingual Lexicon Induction","complexity":"moderate"}
+{"dataset":"beir_scidocs","qid":"83718b398b9938b433e67376d1c95098a7f8812a","query":"Detection of ascending stairs using stereo vision","complexity":"moderate"}
+{"dataset":"beir_scidocs","qid":"2dd5f1d69e0e8a95a10f3f07f2c0c7fa172994b3","query":"20 Machine Analysis of Facial Expressions","complexity":"moderate"}
+{"dataset":"beir_scidocs","qid":"82861adefbf357499bf55e7c95fe9a933ad10150","query":"Solving molecular distance geometry problems in OpenCL","complexity":"moderate"}
+{"dataset":"beir_scidocs","qid":"e27aff8fffd4ad43275d355202a135f848be0e76","query":"Development and Validation of the Transgender Attitudes and Beliefs Scale.","complexity":"moderate"}
+{"dataset":"beir_scidocs","qid":"8384094ce1b342da9eabd2ec939e9bb16ca7ff5c","query":"New local edge binary patterns for image retrieval","complexity":"moderate"}
+{"dataset":"beir_scidocs","qid":"d4cb7ecfe297b34bf8763ed65dc8ffd2ca806963","query":"Plane Detection in Point Cloud Data","complexity":"moderate"}
+{"dataset":"beir_scidocs","qid":"8aba3628ad8c9cec11b2b518a96b883bda8b3cbb","query":"Broadband millimetre-wave passive spatial combiner based on coaxial waveguide","complexity":"moderate"}
+{"dataset":"beir_scidocs","qid":"5056e36419b95411e4c03e9c011bbdd286bbb7a9","query":"PD control with on-line gravity compensation for robots with elastic joints: Theory and experiments","complexity":"complex"}
+{"dataset":"beir_scidocs","qid":"271a4077c037b86fb7daf6bff3e66682322ff7d7","query":"Movement segmentation using a primitive library","complexity":"complex"}
+{"dataset":"beir_scidocs","qid":"6197dbd691037a412b67df688541df7c9ae87c0d","query":"Posterior distribution analysis for Bayesian inference in neural networks","complexity":"complex"}
+{"dataset":"beir_scidocs","qid":"027e7780dbda48d99f3654e77b4a63063224950e","query":"General transformations for GPU execution of tree traversals","complexity":"complex"}
+{"dataset":"beir_scidocs","qid":"1f157f2b144528924eec46d9316bd5517352b89a","query":"How do fixes become bugs?","complexity":"complex"}
+{"dataset":"beir_scidocs","qid":"0d21cc2677e544b46673ff19ad4f378f32129069","query":"Convolutional MKL Based Multimodal Emotion Recognition and Sentiment Analysis","complexity":"complex"}
+{"dataset":"beir_scidocs","qid":"6519bf5580fcdcc9c50fd72c6c8dc5d040d443e8","query":"A survey of multi-source energy harvesting systems","complexity":"complex"}
+{"dataset":"beir_scidocs","qid":"4fb07b6ff97ebfb80a7c18b0c55ebd32db84cd54","query":"Deep Semantic Frame-Based Deceptive Opinion Spam Analysis","complexity":"complex"}
+{"dataset":"beir_scidocs","qid":"7c8a65bb8e328d8c5bbd352ed4baadc82144dd8b","query":"Thoughts on Vehicular Ad Hoc Networks ( VANETs ) in the Real World Traffic Scenarios","complexity":"complex"}
+{"dataset":"beir_scidocs","qid":"fe4cfc7df897c632311ed0165e66ff9932865e5f","query":"Privacy preserving big data mining: association rule hiding using fuzzy logic approach","complexity":"complex"}
+{"dataset":"beir_scidocs","qid":"79b97a68a26c38e8441e3f7902c6f6cf5d975622","query":"Optimal design and tradeoffs analysis for planar transformer in high power DC-DC converters","complexity":"complex"}
+{"dataset":"beir_scidocs","qid":"1bc5ea91875143e0526ac587b9c4aa6c64ceec98","query":"High-fidelity simulation for evaluating robotic vision performance","complexity":"complex"}
+{"dataset":"beir_scidocs","qid":"0ee5364a1672ec0b8dbb3e1f84a5eca1d7851a6d","query":"Modeling direct and indirect influence across heterogeneous social networks","complexity":"complex"}
+{"dataset":"beir_scidocs","qid":"50d388989d9b25754ef9dc5663e85eaf64a17d24","query":"The effects of fear and anger facial expressions on approach- and avoidance-related behaviors.","complexity":"complex"}
+{"dataset":"beir_scidocs","qid":"0a40663fdcf7c5fb7cfc459693116c41309e7eca","query":"Algorithmic Nuggets in Content Delivery","complexity":"complex"}

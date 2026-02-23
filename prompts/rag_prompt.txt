@@ -3,8 +3,9 @@ For this query: "{{ query }}"
 
 Below are the top {{ top_k }} retrieved documents:
 {% for doc in docs %}
-Document {{ loop.index }}:
-{{ doc }}
+Document {{ loop.index }} (docid={{ doc.docid }}, rank={{ doc.rank }}, score={{ "%.4f"|format(doc.score) }}):
+{{ doc.passage }}
+
 {% endfor %}
 
- For this query, search the document collection and provide a comprehensive answer.
+For this query, search the document collection and provide a comprehensive answer.

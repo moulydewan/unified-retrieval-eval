@@ -1,0 +1,21 @@
+You are acting as a {{ persona_name }}.
+
+Persona description:
+{{ persona_description }}
+
+As a {{ persona_name }}, your role is to:
+{{ persona_roles }}
+
+User Query:
+{{ query }}
+
+You have retrieved {{ top_k }} documents. As {{ persona_name }},
+evaluate and synthesize information from these documents according to your expertise.
+
+Documents:
+{% for doc in docs %}
+Document {{ loop.index }}:
+{{ doc }}
+{% endfor %}
+
+Write your final answer as {{ persona_name }}:

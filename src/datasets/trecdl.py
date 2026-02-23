@@ -1,55 +1,9 @@
 import logging
 import ir_datasets
 import pandas as pd
-
-logger = logging.getLogger(__name__)
-
-class TRECDLAdapter:
-    """Adapter for TREC Deep Learning 2019–2021 datasets (MSMARCO corpus)."""
-
-    def __init__(self, year: int = 2020, mode: str = "passage"):
-        if year not in [2019, 2020, 2021]:
-            raise ValueError("Supported years are 2019–2021.")
-        if mode not in ["passage", "document"]:
-            raise ValueError("mode must be 'passage' or 'document'.")
-
-        # Handle dataset naming conventions across years
-        if year in [2019, 2020]:
-            dataset_id = f"msmarco-{mode}/trec-dl-{year}"
-        else:  # 2021
-            dataset_id = f"msmarco-{mode}-v2/trec-dl-{year}"
-
-        logger.info(f"Loading {dataset_id} via ir_datasets ...")
-
-        try:
-            self.dataset = ir_datasets.load(dataset_id)
-        except KeyError:
-            raise ValueError(f"Dataset not found in ir_datasets: {dataset_id}")
-
-        self.name = dataset_id
-        self.year = year
-        self.mode = mode
-
-    def load(self, limit: int = None):
-        try:
-            docs_iter = self.dataset.docs_iter()
-            queries_iter = self.dataset.queries_iter()
-            qrels_iter = self.dataset.qrels_iter()
-
-            docs = list(docs_iter if limit is None else [d for _, d in zip(range(limit), docs_iter)])
-            queries = list(queries_iter if limit is None else [q for _, q in zip(range(limit), queries_iter)])
-            qrels = list(qrels_iter if limit is None else [r for _, r in zip(range(limit), qrels_iter)])
-
-            logger.info(f"Loaded {len(docs)} docs, {len(queries)} queries, {len(qrels)} qrels.")
-            return {"docs": docs, "queries": queries, "qrels": qrels}
-        except Exception as e:
-            logger.error(f"Failed to load {self.name}: {e}")
-            return {"docs": [], "queries": [], "qrels": []}
-
-
-import logging
-import ir_datasets
 from typing import Dict, Any, Iterator, Optional
+
+from src.datasets.datasetbundle import IRDatasetBundle
 
 logger = logging.getLogger(__name__)
 
@@ -73,6 +27,7 @@ class TRECDLAdapter:
             dataset_id = f"msmarco-{mode}-v2/trec-dl-{year}"
 
         logger.info(f"Initializing dataset: {dataset_id}")
+
         try:
             self.dataset = ir_datasets.load(dataset_id)
         except KeyError:
@@ -82,15 +37,41 @@ class TRECDLAdapter:
         self.year = year
         self.mode = mode
 
-    # Data loading
-    def load(self, limit: Optional[int] = None) -> Dict[str, Any]:
+    # -------------------------------
+    # Load ONLY qrels-backed queries
+    # -------------------------------
+    def load_queries_df(self, max_items: Optional[int] = None, seed: int = 42) -> pd.DataFrame:
+        qids_with_qrels = set(r.query_id for r in self.dataset.qrels_iter())
+
+        rows = []
+        for q in self.dataset.queries_iter():
+            if q.query_id in qids_with_qrels:
+                rows.append((q.query_id, getattr(q, "text", "")))
+
+        df = (
+            pd.DataFrame(rows, columns=["qid", "query"])
+            .drop_duplicates("qid")
+            .reset_index(drop=True)
+        )
+
+        if max_items is not None and len(df) > max_items:
+            df = df.sample(n=max_items, random_state=seed).reset_index(drop=True)
+
+        return df
+
+    # -------------------------------
+    # Load judged-only (ALWAYS)
+    # -------------------------------
+    def load(self, limit: Optional[int] = None, full_corpus: bool = False) -> Dict[str, Any]:
         """
-        Load dataset into memory.
-        If limit is specified, load that many queries *that actually have judged documents*.
+        Always loads JUDGED-ONLY docs (docids appearing in qrels for selected queries).
+
+        NOTE: `full_corpus` is intentionally ignored for TREC DL because MSMARCO is too large
+        to materialize in-memory, and retrieval uses Pyserini for BM25.
         """
         try:
-            # Step 1: Build mapping of query → qrels
-            qrel_map = {}
+            # Step 1: Build mapping of query → qrels (single pass)
+            qrel_map: Dict[str, list] = {}
             for r in self.dataset.qrels_iter():
                 qrel_map.setdefault(r.query_id, []).append(r)
 
@@ -99,29 +80,34 @@ class TRECDLAdapter:
             if limit:
                 all_queries = all_queries[:limit]
 
-            qids = {q.query_id for q in all_queries}
-
             # Step 3: Gather qrels for these queries
-            qrels = [r for r in self.dataset.qrels_iter() if r.query_id in qids]
+            qrels = [r for q in all_queries for r in qrel_map.get(q.query_id, [])]
 
-            # Step 4: Collect all relevant doc IDs
+            # Step 4: Materialize judged docs only
             docids = {r.doc_id for r in qrels}
-            docs = [d for d in self.dataset.docs_iter() if d.doc_id in docids]
+            store = self.dataset.docs_store()
+            docs = []
+            for did in docids:
+                d = store.get(did)
+                if d is not None:
+                    docs.append(d)
 
             logger.info(
-                f"[TREC DL {self.year}] Loaded {len(docs)} docs, {len(all_queries)} queries, {len(qrels)} qrels."
+                f"[TREC DL {self.year}] Loaded JUDGED corpus={len(docs)} docs, "
+                f"{len(all_queries)} queries, {len(qrels)} qrels."
             )
 
-            return {"docs": docs, "queries": all_queries, "qrels": qrels}
+            # full_corpus is forced False to prevent empty corpus_df paths downstream
+            return {"docs": docs, "queries": all_queries, "qrels": qrels, "full_corpus": False}
 
         except Exception as e:
             logger.error(f"Failed to load {self.name}: {e}")
-            return {"docs": [], "queries": [], "qrels": []}
+            return {"docs": [], "queries": [], "qrels": [], "full_corpus": False}
 
-
-    # Iterators for streaming TRECDL
+    # -------------------------------
+    # Iterators for streaming (optional)
+    # -------------------------------
     def iter_docs(self, limit: Optional[int] = None) -> Iterator[Any]:
-        """Yield documents lazily to avoid memory blowup."""
         count = 0
         for doc in self.dataset.docs_iter():
             yield doc
@@ -130,7 +116,6 @@ class TRECDLAdapter:
                 break
 
     def iter_queries(self, limit: Optional[int] = None) -> Iterator[Any]:
-        """Yield queries."""
         count = 0
         for q in self.dataset.queries_iter():
             yield q
@@ -139,7 +124,6 @@ class TRECDLAdapter:
                 break
 
     def iter_qrels(self, limit: Optional[int] = None) -> Iterator[Any]:
-        """Yield qrels."""
         count = 0
         for r in self.dataset.qrels_iter():
             yield r
@@ -147,11 +131,10 @@ class TRECDLAdapter:
             if limit and count >= limit:
                 break
 
-     #helper function to create a dataframe for TREC    
+    # -------------------------------
+    # Convert to flat DataFrame
+    # -------------------------------
     def trec_df(self, data: Dict[str, Any]) -> pd.DataFrame:
-        """
-        Convert loaded TREC DL data into a flat DataFrame with qid, query, docid, passage, and rel.
-        """
         if not all(k in data for k in ["docs", "queries", "qrels"]):
             raise ValueError("Input must contain 'docs', 'queries', and 'qrels' keys.")
 
@@ -168,5 +151,24 @@ class TRECDLAdapter:
             if query and passage:
                 rows.append((qid, query, docid, passage, rel))
 
-        df = pd.DataFrame(rows, columns=["qid", "query", "docid", "passage", "rel"])
-        return df
+        return pd.DataFrame(rows, columns=["qid", "query", "docid", "passage", "rel"])
+
+    # -------------------------------
+    # Convert to IRDatasetBundle (ALWAYS judged-only)
+    # -------------------------------
+    def to_bundle(self, data: Dict[str, Any]) -> IRDatasetBundle:
+        """
+        Always returns a non-empty judged-only corpus_df (unless dataset has no qrels/docs).
+        Removes the prior 'full_corpus=True => empty corpus_df' behavior.
+        """
+        df = self.trec_df(data)
+
+        queries_df = df[["qid", "query"]].drop_duplicates("qid").reset_index(drop=True)
+        corpus_df = df[["docid", "passage"]].drop_duplicates("docid").reset_index(drop=True)
+        qrels_df = df[["qid", "docid", "rel"]].drop_duplicates().reset_index(drop=True)
+
+        return IRDatasetBundle(corpus_df=corpus_df, queries_df=queries_df, qrels_df=qrels_df)
+
+    def load_bundle(self, limit: Optional[int] = None, full_corpus: bool = False) -> IRDatasetBundle:
+        data = self.load(limit=limit, full_corpus=full_corpus)
+        return self.to_bundle(data)

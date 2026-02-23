@@ -17,6 +17,150 @@ def get_bedrock_client(region: str = "us-east-1"):
     return _bedrock_clients[region]
 
 
+# def generate_bedrock_model(
+#     model_id: str,
+#     prompt: str,
+#     temperature: float = 0.0,
+#     top_p: Optional[float] = 1.0,
+#     n: int = 1,
+#     max_tokens: int = 512,
+#     system_prompt: Optional[str] = None,
+#     region: str = "us-east-1",
+#     **kwargs,
+# ) -> Union[str, List[str]]:
+#     """
+#     Generation function for Bedrock (supports Claude 3.x and 4.x, GPT oss 20b and 120b).
+#     Detects which API to call:
+#       - Claude 3.x models use invoke_model()
+#       - Claude 4.x models use converse()
+#       - GPT oss 20b, 120b models use invoke_model()
+#     """
+
+#     client = get_bedrock_client(region)
+#     results = []
+
+#     # Detect whether this is Claude 3.x or 4.x, GPT oss 20b, 120b
+#     is_claude_3 = any(
+#         key in model_id.lower()
+#         for key in ["claude-3", "sonnet-3", "haiku-3", "2024"]
+#     )
+
+#     is_claude_4 = any(
+#         key in model_id.lower()
+#         for key in ["claude-sonnet-4", "claude-haiku-4"]
+#     )
+
+#     is_gpt_oss = "gpt-oss" in model_id.lower()
+
+#     if is_claude_3:
+#         model_type = "Claude 3.x"
+#     elif is_claude_4:
+#         model_type = "Claude 4.x"
+#     elif is_gpt_oss:
+#         model_type = "GPT-OSS (20B/120B)"
+#     else:
+#         model_type = "Unknown"
+
+#     logger.info(f"Using {model_type} generation for model: {model_id}")
+
+#     for i in range(n):
+#         retries = 0
+#         max_retries = 6
+
+#         while retries <= max_retries:
+#             try:
+#                 if is_claude_3:
+#                     # Claude 3.x (Invoke Model API)
+#                     messages = []
+#                     if system_prompt:
+#                         messages.append({
+#                             "role": "system",
+#                             "content": [{"type": "text", "text": system_prompt}],
+#                         })
+#                     messages.append({
+#                         "role": "user",
+#                         "content": [{"type": "text", "text": prompt}],
+#                     })
+
+#                     body = {
+#                         "anthropic_version": "bedrock-2023-05-31",
+#                         "max_tokens": max_tokens,
+#                         "temperature": temperature,
+#                         "top_p": top_p,
+#                         "messages": messages,
+#                     }
+
+#                     response = client.invoke_model(modelId=model_id, body=json.dumps(body))
+#                     result = json.loads(response["body"].read())
+#                     text = result["content"][0]["text"].strip()
+
+#                 elif is_claude_4:
+#                     # Claude 4.x (Converse API)
+#                     messages = []
+#                     if system_prompt:
+#                         messages.append({"role": "system", "content": [{"text": system_prompt}]})
+#                     messages.append({"role": "user", "content": [{"text": prompt}]})
+
+#                     inference_config = {"maxTokens": max_tokens}
+#                     if top_p is not None:
+#                         inference_config["topP"] = top_p
+#                     else:
+#                         inference_config["temperature"] = temperature
+
+#                     response = client.converse(
+#                         modelId=model_id,
+#                         messages=messages,
+#                         inferenceConfig=inference_config,
+#                     )
+
+#                     outputs = response.get("output", {}).get("message", {}).get("content", [])
+#                     text = outputs[0].get("text", "").strip() if outputs else ""
+
+#                 elif is_gpt_oss:
+#                     # OpenAI GPT-OSS (20B or 120B) via Bedrock
+#                     messages = []
+#                     if system_prompt:
+#                         messages.append({"role": "system", "content": system_prompt})
+#                     messages.append({"role": "user", "content": prompt})
+
+#                     body = {
+#                         "messages": messages,
+#                         "max_completion_tokens": max_tokens,
+#                         "temperature": temperature,
+#                         "top_p": top_p,
+#                     }
+
+#                     response = client.invoke_model(modelId=model_id, body=json.dumps(body))
+#                     result = json.loads(response["body"].read())
+#                     text = result["choices"][0]["message"]["content"].strip()
+
+#                 else:
+#                     raise ValueError(f"Unknown AWS model type: {model_id}")
+
+#                 results.append(text)
+#                 break
+
+#             except Exception as e:
+#                 if "ThrottlingException" in str(e) or "Too many requests" in str(e):
+#                     wait_time = min(90, 2 ** retries + random.random() * 2)
+#                     logger.warning(
+#                         f"Rate limit hit (attempt {retries+1}/{max_retries}). "
+#                         f"Sleeping {wait_time:.1f}s..."
+#                     )
+#                     time.sleep(wait_time)
+#                     retries += 1
+#                 else:
+#                     logger.error(f"Claude generation failed: {e}")
+#                     raise e
+
+#         else:
+#             raise RuntimeError(f"Max retries exceeded for model {model_id}")
+
+#         if n > 1:
+#             time.sleep(0.1)
+
+#     return results[0] if n == 1 else results
+
 def generate_bedrock_model(
     model_id: str,
     prompt: str,
@@ -26,49 +170,46 @@ def generate_bedrock_model(
     max_tokens: int = 512,
     system_prompt: Optional[str] = None,
     region: str = "us-east-1",
+    return_meta: bool = False,   # <--- NEW
     **kwargs,
-) -> Union[str, List[str]]:
+) -> Union[str, List[str], dict, List[dict]]:
     """
-    Generation function for Bedrock (supports Claude 3.x and 4.x, GPT oss 20b and 120b).
-    Detects which API to call:
-      - Claude 3.x models use invoke_model()
-      - Claude 4.x models use converse()
-      - GPT oss 20b, 120b models use invoke_model()
+    Bedrock generation.
+    If return_meta=False (default): behaves like before (returns text or list of texts).
+    If return_meta=True: returns dict(s) with {"text", "usage", "model_id", "api"}.
     """
 
     client = get_bedrock_client(region)
     results = []
 
-    # Detect whether this is Claude 3.x or 4.x, GPT oss 20b, 120b
-    is_claude_3 = any(
-        key in model_id.lower()
-        for key in ["claude-3", "sonnet-3", "haiku-3", "2024"]
-    )
-
-    is_claude_4 = any(
-        key in model_id.lower()
-        for key in ["claude-sonnet-4", "claude-haiku-4"]
-    )
-
+    is_claude_3 = any(key in model_id.lower() for key in ["claude-3", "sonnet-3", "haiku-3", "2024"])
+    is_claude_4 = any(key in model_id.lower() for key in ["claude-sonnet-4", "claude-haiku-4"])
     is_gpt_oss = "gpt-oss" in model_id.lower()
 
     if is_claude_3:
         model_type = "Claude 3.x"
+        api = "invoke_model"
     elif is_claude_4:
         model_type = "Claude 4.x"
+        api = "converse"
     elif is_gpt_oss:
         model_type = "GPT-OSS (20B/120B)"
+        api = "invoke_model"
     else:
         model_type = "Unknown"
+        api = "unknown"
 
     logger.info(f"Using {model_type} generation for model: {model_id}")
 
-    for i in range(n):
+    for _ in range(n):
         retries = 0
         max_retries = 6
 
         while retries <= max_retries:
             try:
+                usage = None
+                raw = None
+
                 if is_claude_3:
                     # Claude 3.x (Invoke Model API)
                     messages = []
@@ -91,8 +232,10 @@ def generate_bedrock_model(
                     }
 
                     response = client.invoke_model(modelId=model_id, body=json.dumps(body))
-                    result = json.loads(response["body"].read())
-                    text = result["content"][0]["text"].strip()
+                    raw = json.loads(response["body"].read())
+
+                    text = raw["content"][0]["text"].strip()
+                    usage = raw.get("usage")  # <-- often present for Anthropic
 
                 elif is_claude_4:
                     # Claude 4.x (Converse API)
@@ -112,12 +255,15 @@ def generate_bedrock_model(
                         messages=messages,
                         inferenceConfig=inference_config,
                     )
+                    raw = response
 
                     outputs = response.get("output", {}).get("message", {}).get("content", [])
                     text = outputs[0].get("text", "").strip() if outputs else ""
 
+                    usage = response.get("usage") or response.get("output", {}).get("usage")
+
                 elif is_gpt_oss:
-                    # OpenAI GPT-OSS (20B or 120B) via Bedrock
+                    # GPT-OSS via invoke_model
                     messages = []
                     if system_prompt:
                         messages.append({"role": "system", "content": system_prompt})
@@ -131,13 +277,25 @@ def generate_bedrock_model(
                     }
 
                     response = client.invoke_model(modelId=model_id, body=json.dumps(body))
-                    result = json.loads(response["body"].read())
-                    text = result["choices"][0]["message"]["content"].strip()
+                    raw = json.loads(response["body"].read())
+
+                    text = raw["choices"][0]["message"]["content"].strip()
+                    usage = raw.get("usage")  # if provided
 
                 else:
                     raise ValueError(f"Unknown AWS model type: {model_id}")
 
-                results.append(text)
+                if return_meta:
+                    results.append({
+                        "text": text,
+                        "usage": usage,       # may be None
+                        "model_id": model_id,
+                        "api": api,
+                        # "raw": raw,         # uncomment if you want (big)
+                    })
+                else:
+                    results.append(text)
+
                 break
 
             except Exception as e:
@@ -150,8 +308,8 @@ def generate_bedrock_model(
                     time.sleep(wait_time)
                     retries += 1
                 else:
-                    logger.error(f"Claude generation failed: {e}")
-                    raise e
+                    logger.error(f"Bedrock generation failed: {e}")
+                    raise
 
         else:
             raise RuntimeError(f"Max retries exceeded for model {model_id}")
@@ -160,6 +318,7 @@ def generate_bedrock_model(
             time.sleep(0.1)
 
     return results[0] if n == 1 else results
+
 
 
 def test_bedrock_connection():

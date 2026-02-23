@@ -1,6 +1,33 @@
 datasets:
-  trecdl:
+  trecdl_2019:
+    enabled: true
+    year: 2019
+    mode: passage
+    limit: 50
+    pyserini_prebuilt_index: msmarco-v1-passage
+
+  trecdl_2020:
     enabled: true
     year: 2020
     mode: passage
-    limit: 10
+    limit: 50
+    pyserini_prebuilt_index: msmarco-v1-passage
+
+  trecdl_2021:
+    enabled: true
+    year: 2021
+    mode: passage
+    limit: 50
+    pyserini_prebuilt_index: msmarco-v2-passage
+
+  beir:
+    enabled: true
+    split: test
+    limit: 50
+    pyserini_prebuilt_index: beir-v1.0.0-scidocs.flat
+
+  nq:
+    enabled: true
+    split: test
+    limit: 50
+    pyserini_prebuilt_index: beir-v1.0.0-nq.flat
