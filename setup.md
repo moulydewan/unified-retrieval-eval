@@ -5,7 +5,7 @@
 - Python 3.12+
 - macOS (for MPS support) or Linux/Windows
 - 8GB+ RAM recommended
-- Internet connection for API models
+- Bedrock connection for Claude models
 
 ## Installation
 
@@ -78,7 +78,7 @@ datasets:
     pyserini_prebuilt_index: msmarco-v2-passage
 ```
 
-## We recommend doing a smoke test with limit 5 first.
+## We recommend doing a smoke test with limit 5 first
 
 ### 1. Full Experiment (limit 5)
 
@@ -86,7 +86,7 @@ datasets:
 # Make scripts executable
 chmod +x scripts/*.sh
 
-# Run quick test (30 items, local models only)
+# Run quick test (5 items)
 ./scripts/run_small_smoke.sh
 
 # Check results
@@ -155,7 +155,7 @@ open:
     temperature: 0.7
 ```
 
-### Custom Datasets
+### Custom Datasets (BEIR dataset is added additionally)
 
 Create new dataset adapters in `src/datasets/`:
 
@@ -173,7 +173,7 @@ class CustomDatasetAdapter:
         pass
 ```
 
-### Custom Strategies
+### Custom Retrieval Strategies
 
 Add new decoding strategies in `src/strategies.py`:
 
