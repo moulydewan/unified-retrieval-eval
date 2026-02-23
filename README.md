@@ -29,4 +29,4 @@ SIGIR26-PERSPECTIVE/
 
 ## Setup Instructions
 
-For detailed setup instructions, see [SETUP_GUIDE.md](SETUP_GUIDE.md).
+For detailed setup instructions, see [setup.md](setup.md).
