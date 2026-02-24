@@ -94,20 +94,23 @@ ls outputs/results/
 ```
 
 # Evaluate results
-./scripts/evaluate_all.sh
+./scripts/evall_all.sh
+
+# Generate token usage
+python src/token_usage.py
 
 # Generate plots
-python scripts/plots.py
+python src/plots.py
 
 # Generate stats
-python scripts/stats.py
+python src/stat.py
 ```
 
-### 3. Full Pipeline
+### 3. Full Pipeline (This may take several hours depending on dataset size and strategy configuration)
 
 ```bash
 # Run everything: experiments + evaluation + plots
-./scripts/run_full_paper_pipeline.sh
+./scripts/run_full.sh
 ```
 
 ## Troubleshooting
