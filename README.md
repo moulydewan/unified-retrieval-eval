@@ -16,14 +16,14 @@ We test 6 retrieval strategies:
 3. **Strategy 3. Human Proxy RAG**: Persona enhanced RAG with varied search expertise and behavior personas.
 4. **Strategy 4. Hierarchical Agent**: Hierarchical agents with multi-agent task decomposition.
 5. **Strategy 5. Peer-to-Peer Agent**: Peer-to-peer agents with different search strategies followed by a consensus mechanism.
-6. **Strategy 6. Functional Agent.**: Functional agents with each agent specializing in one role.
+6. **Strategy 6. Functional Agent**: Functional agents with each agent specializing in one role.
 
 ## Methodology
 
 ### Experimental Design
 
 **Models Tested:**
-- **Open Source via Bedrock**: Claude 3.5 Sonnet, Claude 4.5 HaikU
+- **Open Source via Bedrock**: Claude 3.5 Sonnet, Claude 4.5 Haiku
 
 **Datasets:**
 - **TREC DL 2019**
