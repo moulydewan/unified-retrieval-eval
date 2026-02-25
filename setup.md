@@ -189,7 +189,7 @@ def custom_strategy(model, prompt, **kwargs):
 ## File Structure
 
 ```
-cot-bias-amplification-llms/
+SIGIR26-PERSPECTIVE/
 ├── configs/           # Configuration files
 ├── data/             # Dataset cache
 ├── outputs/          # Results and logs
