@@ -23,7 +23,8 @@ We test 6 retrieval strategies:
 ### Experimental Design
 
 **Models Tested:**
-- **Open Source via Bedrock**: Claude 3.5 Sonnet, Claude 4.5 Haiku
+- **Closed Source via Bedrock**: Claude 3.5 Sonnet, Claude 4.5 Haiku
+- **Open Source via Ollama**: llama3.1-8b, llama3.2-3b (Not included in the paper but adding soon for open-source LLM usage)
 
 **Datasets:**
 - **TREC DL 2019**
