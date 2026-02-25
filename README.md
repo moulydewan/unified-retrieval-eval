@@ -43,7 +43,7 @@ We test 6 retrieval strategies:
 ### Evaluation Metrics
 - **Retrieval Metrics**: Acc@10 Recall@10 MRR@10 nDCG@10
 - **Generation Metrics**: Coverage ROUGE-L BERTScore
-- **Information Coverage**: How well a strategy grounds its generated answer in retrieved evidence using a nugget-level grounding metric
+- **Information Coverage**: How well a strategy grounds its generated answer in retrieved evidence using a nugget-level grounding metric?
 - **Response Quality**: Generated response quality using BERTScore
 
 ## Repository Structure
