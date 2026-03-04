@@ -65,6 +65,18 @@ echo
 echo "Startegy 1: Smoke test completed"
 ```
 
+## Evaluation Runner Example (eval_all.sh)
+
+```
+# Strategy 1: Standard RAG
+python -m src.evaluation.eval_rag \
+  --inputs outputs/results \
+  --out outputs/eval/rag_summary.csv \
+  --detailed-out outputs/eval/rag_detailed.csv \
+  --by-complexity-out outputs/eval/rag_by_complexity.csv
+```
+
+
 ## Repository Structure
 
 ```
