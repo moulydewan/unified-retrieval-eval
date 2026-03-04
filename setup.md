@@ -80,7 +80,7 @@ datasets:
 
 ## We recommend doing a smoke test with limit 5 first
 
-### 1. Full Experiment (limit 5)
+### 1. Smoke Test (limit 5)
 
 ```bash
 # Make scripts executable
@@ -92,17 +92,28 @@ chmod +x scripts/*.sh
 # Check results
 ls outputs/results/
 ```
+### 2. Full Experiment
+```bash
+./scripts/run_full.sh
+```
 
-# Evaluate results
+# 3. Evaluate results
+```bash
 ./scripts/evall_all.sh
+```
 
-# Generate token usage
+# 4. Generate token usage
+```bash
 python src/token_usage.py
+```
 
-# Generate plots
+# 5. Generate plots
+```bash
 python src/plots.py
+```
 
-# Generate stats
+# 6. Generate stats
+```bash
 python src/stat.py
 ```
 
