@@ -46,6 +46,25 @@ We test 6 retrieval strategies:
 - **Information Coverage**: How well a strategy grounds its generated answer in retrieved evidence using a nugget-level grounding metric?
 - **Response Quality**: Generated response quality using BERTScore
 
+## Strategy Runner Example (run_small_smoke.sh)
+
+```
+# Strategy 1: Standard RAG
+echo "Running small smoke test"
+echo "Dataset: TREC DL"
+echo "Strategy 1: Standard RAG"
+echo "------------------------------------"
+python -m src.run_experiment \
+  --models claude-4-5-haiku \
+  --strategies rag \
+  --datasets trecdl_2019,trecdl_2020,trecdl_2021 \
+  --limit 5 \
+  --top_k 10
+
+echo
+echo "Startegy 1: Smoke test completed"
+```
+
 ## Repository Structure
 
 ```
