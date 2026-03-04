@@ -201,14 +201,34 @@ def custom_strategy(model, prompt, **kwargs):
 
 ```
 SIGIR26-PERSPECTIVE/
-├── configs/           # Configuration files
-├── data/             # Dataset cache
-├── outputs/          # Results and logs
-├── prompts/          # Prompt templates
-├── scripts/          # Utility scripts
-├── src/              # Source code
-├── plots/            # Generated figures
-├── .env              # API keys (create this)
-├── .env.example      # API keys template
-└── requirements.txt  # Python dependencies
+│
+├── .venv/
+│
+├── configs/
+│   ├── datasets.yaml                  # Dataset settings
+│   ├── models.yaml                    # Model configurations
+|   ├── personas.yaml                  # Persona configurations for Strategy 3. Human Proxy RAG
+│   └── strategies.yaml                # Strategy configurations (Human Proxy, Agent Only, Traditional RAG etc.)
+├── outputs/
+│   ├── dense/                         # Dense embeddings
+│   ├── eval/                          # Evaluation files
+│   ├── logs/                          # Experiment logs
+│   ├── results/                       # Result files
+├── prompts/                           # Prompt Templates
+├── scripts/                           # Convenience scripts (smoke test, full pipeline, evaluation)
+├── src/
+│   ├── main.py                        # Experiment checker
+│   ├── run_experiment.py              # Main experiment runner
+│   ├── stat.py                        # Stat tests
+│   |── utils.py                       # IO, seeds, logging
+│   ├── plots.py                       # Plots
+│   ├── token_usage.py                 # Token usage
+│   ├── agents/                        # Agents
+│   ├── datasets/                      # Datasets
+│   ├── evaluation/                    # Evaluation
+│   ├── experiments/                   # 6 Strategies
+│   ├── generation_backend/            # LLM Model API Adapters
+│   ├── managers/                      # Dataset and strategy managers
+└── requirements.txt
+
 ```
