@@ -56,18 +56,28 @@ SIGIR26-PERSPECTIVE/
 ├── configs/
 │   ├── datasets.yaml                  # Dataset settings
 │   ├── models.yaml                    # Model configurations
+|   ├── personas.yaml                  # Persona configurations for Strategy 3. Human Proxy RAG
 │   └── strategies.yaml                # Strategy configurations (Human Proxy, Agent Only, Traditional RAG etc.)
 ├── outputs/
-│   ├── logs/                          #Experiment logs
-│   ├── results/                       #Result files
-├── prompts/                           #Prompt Templates
-├── scripts/                           #Convenience scripts
+│   ├── dense/                         # Dense embeddings
+│   ├── eval/                          # Evaluation files
+│   ├── logs/                          # Experiment logs
+│   ├── results/                       # Result files
+├── prompts/                           # Prompt Templates
+├── scripts/                           # Convenience scripts (smoke test, full pipeline, evaluation)
 ├── src/
-│   ├── main.py                        #experiment checker
-│   ├── run_experiment.py              #Main experiment runner
-│   |── utils.py                       #IO, seeds, logging
-│   ├── datasets/                      #Dataset manager
-│   ├── generation_backend/            #LLM Model API Adapters
+│   ├── main.py                        # Experiment checker
+│   ├── run_experiment.py              # Main experiment runner
+│   ├── stat.py                        # Stat tests
+│   |── utils.py                       # IO, seeds, logging
+│   ├── plots.py                       # Plots
+│   ├── token_usage.py                 # Token usage
+│   ├── agents/                        # Agents
+│   ├── datasets/                      # Datasets
+│   ├── evaluation/                    # Evaluation
+│   ├── experiments/                   # 6 Strategies
+│   ├── generation_backend/            # LLM Model API Adapters
+│   ├── managers/                      # Dataset and strategy managers
 └── requirements.txt
 
 
