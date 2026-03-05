@@ -30,7 +30,7 @@ We test 6 retrieval strategies:
 - **TREC DL 2019**
 - **TREC DL 2020**
 - **TREC DL 2021**
-- **BEIR/SCIDOCS**
+- **BEIR/SCIDOCS** (additional)
 
 **Experimental Setup**
 - 6 Retrieval Strategies
