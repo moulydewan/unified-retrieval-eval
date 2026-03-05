@@ -136,23 +136,29 @@ cat .env
 # Test API connection
 python -c "import os; print('OpenAI key:', bool(os.getenv('OPENAI_API_KEY')))"
 ```
-```
+
 
 ### Performance Tips
 
 **1. Use Local Models for Development**
+```
 - Ollama models are faster for iteration
 - No API costs
 - Offline capability
+```
 
 **2. Start Small**
+```
 - Use `limit 5` for testing
 - Test with 1-2 models first
 - Use `run_small_smoke.sh` for quick validation
+```
 
 **3. Parallel Processing**
+```
 - The framework automatically uses available CPU cores
 - For large experiments, consider running overnight
+```
 
 ## Advanced Usage
 
