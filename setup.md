@@ -164,7 +164,7 @@ python -c "import os; print('OpenAI key:', bool(os.getenv('OPENAI_API_KEY')))"
 
 ### Custom Models
 
-Add new models to `configs/models.yaml`:
+You can add more models with local ollama. Add new models to `configs/models.yaml`:
 
 ```yaml
 open:
