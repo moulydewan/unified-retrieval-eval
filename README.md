@@ -30,12 +30,11 @@ We test 6 retrieval strategies:
 - **TREC DL 2019**
 - **TREC DL 2020**
 - **TREC DL 2021**
-- **BEIR/SCIDOCS** (additional)
 
 **Experimental Setup**
 - 6 Retrieval Strategies
 - 3 Query Types (Simple, Moderate, Complex)
-- 3 datasets (TREC DL 2019, 2020, 2021)
+- 3 Datasets (TREC DL 2019, 2020, 2021)
 - All experiments are exectued useing fixed query subsets (seed = 42) with top-k, k = 10.
 - Independent variables include strategy configuration type and query complexity
 - Dependent variables capture retrieval effectiveness (Accuracy@10, Recall@10, MRR@10, nDCG@10), generation quality (ROUGE-L, BERTScore), information coverage, and computational efficiency (token usage and latency).
