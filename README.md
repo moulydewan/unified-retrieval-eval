@@ -1,4 +1,4 @@
-# Human Agent Collaboration - SIGIR Resource Paper Repository
+# Human Agent Collaboration - SIGIR-ICTIR Perspective Paper Repository
 
 ## Title: A Reproducible Framework for Evaluating Retrieval Strategies Across IR Paradigms
 
